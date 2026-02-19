@@ -58,7 +58,7 @@ const Orders = () => {
             <div className="max-w-[1000px] mx-auto space-y-8">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div>
-                        <h1 className="text-2xl md:text-3xl font-bold text-[#1B2A4A] mb-1">My Orders</h1>
+                        <h1 className="text-2xl md:text-3xl font-bold text-[#1B2A4A] mb-1 mt-10 md:mt-0">My Orders</h1>
                         <p className="text-gray-500">Track and manage your order history</p>
                     </div>
                     <div className="flex gap-2">

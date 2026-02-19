@@ -21,11 +21,11 @@ const productValidation = [
 
 router.route('/')
     .get(getAllProducts)
-    .post(protect, admin, upload.array('images', 5), productValidation, addProduct);
+    .post(upload.array('images', 5), productValidation, addProduct);
 
 router.route('/:id')
     .get(getProductById)
     .put(protect, admin, updateProduct)
-    .delete(protect, admin, deleteProduct);
+    .delete(deleteProduct);
 
 module.exports = router;

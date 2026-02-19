@@ -1,33 +1,49 @@
-import { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import Layout from "./components/layout/Layout";
+import Dashboard from "./pages/Dashboard";
+import Products from "./pages/Products";
+import AddProduct from "./pages/AddProduct";
+import Orders from "./pages/Orders";
+import Delivery from "./pages/Delivery";
+import Customers from "./pages/Customers";
+import Analytics from "./pages/Analytics";
+import Settings from "./pages/Settings";
+import Login from "./pages/Login";
+
+const ProtectedRoute = ({ children }) => {
+  const { user } = useAuth();
+  if (!user) return <Navigate to="/login" replace />;
+  return children;
+};
 
 function App() {
-
   return (
-    <nav className="bg-slate-900 text-white px-6 py-3 flex items-center justify-between">
-      {/* Logo */}
-      <div className="text-xl font-bold tracking-wide">
-        Apni<span className="text-yellow-400">Dukan</span>
-      </div>
+    <div className="bg-[#0a0e1a] min-h-screen text-white">
+      <Router>
+        <AuthProvider>
+          <Routes>
+            <Route path="/login" element={<Login />} />
 
-      {/* Search */}
-      <div className="flex-1 mx-6">
-        <input
-          type="text"
-          placeholder="Search products..."
-          className="w-full px-4 py-2 rounded-md text-black focus:outline-none"
-        />
-      </div>
-
-      {/* Actions */}
-      <div className="flex items-center gap-6 text-sm">
-        <button className="hover:text-yellow-400">Login</button>
-        <button className="hover:text-yellow-400">Orders</button>
-        <button className="bg-yellow-400 text-black px-4 py-2 rounded-md font-semibold">
-          Cart
-        </button>
-      </div>
-    </nav>
-  )
+            <Route path="/" element={
+              <ProtectedRoute>
+                <Layout />
+              </ProtectedRoute>
+            }>
+              <Route index element={<Dashboard />} />
+              <Route path="products" element={<Products />} />
+              <Route path="products/add" element={<AddProduct />} />
+              <Route path="orders" element={<Orders />} />
+              <Route path="delivery" element={<Delivery />} />
+              <Route path="customers" element={<Customers />} />
+              <Route path="analytics" element={<Analytics />} />
+              <Route path="settings" element={<Settings />} />
+            </Route>
+          </Routes>
+        </AuthProvider>
+      </Router>
+    </div>
+  );
 }
 
-export default App
+export default App;

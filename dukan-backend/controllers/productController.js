@@ -31,8 +31,7 @@ const addProduct = asyncHandler(async (req, res) => {
         bulkPrice,
         minBulkQty,
         stock,
-        images,
-        addedBy: req.user._id
+        images
     });
 
     res.status(201).json({
